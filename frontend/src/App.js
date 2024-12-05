@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Button, Typography, Container, Card, Box } from "@mui/material";
+import { motion } from "framer-motion";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(null); // Pour gérer les erreurs
-  const [loading, setLoading] = useState(false); // Pour gérer l'état de chargement
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-    setError(null); // Réinitialiser les erreurs si une nouvelle image est sélectionnée
   };
 
   const handleUpload = async () => {
@@ -21,62 +20,98 @@ function App() {
     const formData = new FormData();
     formData.append("file", selectedFile);
 
-    setLoading(true); // Début du chargement
-    setError(null); // Réinitialiser les erreurs précédentes
-    setResult(null); // Réinitialiser le résultat précédent
-
     try {
-      const response = await axios.post("http://127.0.0.1:5001/predict", formData, {
+      const response = await axios.post("http://localhost:5001/predict", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      setResult(response.data); // Stocker le résultat de l'API
+      setResult(response.data);
     } catch (error) {
       console.error("Erreur lors de la requête :", error);
-      if (error.response) {
-        // Si l'API retourne une erreur avec un code de statut
-        setError(
-          `Erreur du serveur : ${error.response.status} - ${error.response.data.error}`
-        );
-      } else if (error.request) {
-        // Si la requête a été envoyée mais qu'aucune réponse n'a été reçue
-        setError("Erreur réseau : Impossible de contacter le serveur.");
-      } else {
-        // Autres erreurs (par exemple, erreur de configuration)
-        setError("Une erreur s'est produite : " + error.message);
-      }
-    } finally {
-      setLoading(false); // Fin du chargement
+      alert("Une erreur s'est produite !");
     }
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Détection de Malaria</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={loading}>
-        {loading ? "Envoi en cours..." : "Envoyer"}
-      </button>
+    <Container style={{ backgroundColor: "#121212", height: "100vh", padding: "20px" }}>
+      {/* Titre animé */}
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <Typography variant="h3" gutterBottom sx={{ textAlign: "center", color: "#fff" }}>
+          Détection de Malaria
+        </Typography>
+      </motion.div>
 
-      {error && (
-        <div style={{ color: "red", marginTop: "20px" }}>
-          <strong>Erreur :</strong> {error}
-        </div>
-      )}
+      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+        {/* Formulaire avec animation d'échelle */}
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <Card
+            variant="outlined"
+            sx={{ padding: 3, width: 350, backgroundColor: "#333" }}
+          >
+            {/* Animation sur le champ de fichier */}
+            <motion.input
+              type="file"
+              onChange={handleFileChange}
+              style={{
+                padding: "10px",
+                backgroundColor: "#444",
+                border: "1px solid #555",
+                color: "#fff",
+              }}
+              whileHover={{ scale: 1.05 }}
+            />
 
-      {result && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Résultat :</h2>
-          <p>
-            <strong>Prédiction :</strong> {result.prediction}
-          </p>
-          <p>
-            <strong>Confiance :</strong> {result.confidence}
-          </p>
-        </div>
-      )}
-    </div>
+            {/* Animation sur le bouton */}
+            <motion.button
+              whileHover={{ scale: 1.1, backgroundColor: "#007BFF" }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                marginTop: "20px",
+                padding: "10px",
+                background: "#007BFF",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                transition: "background 0.2s ease",
+              }}
+              onClick={handleUpload}
+            >
+              Envoyer
+            </motion.button>
+
+            {/* Résultat avec animation de transparence */}
+            {result && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                style={{ marginTop: "20px" }}
+              >
+                <Typography variant="h6" style={{ color: "#fff" }}>
+                  Résultat :
+                </Typography>
+                <Typography variant="body1" style={{ color: "#ccc" }}>
+                  Prédiction : {result.prediction}
+                </Typography>
+                <Typography variant="body1" style={{ color: "#ccc" }}>
+                  Confiance : {result.confidence}
+                </Typography>
+              </motion.div>
+            )}
+          </Card>
+        </motion.div>
+      </Box>
+    </Container>
   );
 }
 
