@@ -1,5 +1,3 @@
-Voici le `README.md` mis à jour en tenant compte des modifications que vous m'avez indiquées, et en retirant la mention de Vue.js et TensorFlow.js, comme demandé :
-
 ---
 
 # 🌟 Malaria Detection Web App 🌟
