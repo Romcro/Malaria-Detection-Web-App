@@ -1,4 +1,4 @@
-Voici votre **README.md** mis à jour avec vos informations spécifiques :
+Voici votre **README.md** mis à jour pour refléter correctement l'utilisation de **Azure**, **Docker**, et **Firebase** pour la redondance, ainsi que la mention explicite de la licence MIT :
 
 ---
 
@@ -12,8 +12,8 @@ Ce projet combine des technologies modernes pour permettre l'analyse automatique
 - **🔬 Modèle Deep Learning** : Un CNN entraîné pour classer les images.
 - **🖥️ Front-End** : Développé avec Vue.js, déployé sur GitHub Pages.
 - **⚙️ Back-End** :
-  - Hébergé sur **Firebase Functions** pour une solution gratuite et scalable.
-  - Redondance assurée pour garantir une haute disponibilité.
+  - Hébergé sur **Azure App Service** avec une architecture conteneurisée (Docker).
+  - **Firebase Functions** utilisé comme solution de redondance gratuite pour assurer une haute disponibilité.
 - **🌐 TensorFlow.js** : Pour exécuter le modèle directement dans le navigateur.
 
 ---
@@ -25,8 +25,8 @@ Ce projet combine des technologies modernes pour permettre l'analyse automatique
 - HTML, CSS, JavaScript 🌐
 
 ### **📡 Back-End**
+- Azure App Services (Docker) ☁️
 - Firebase Functions 🔥
-- Node.js pour les API serverless 🌐
 
 ### **📊 Machine Learning**
 - TensorFlow/Keras 🎛️
@@ -37,7 +37,7 @@ Ce projet combine des technologies modernes pour permettre l'analyse automatique
 ## 📋 **Fonctionnalités**
 - 📤 **Télécharger une image** : Chargez une image de cellule depuis votre appareil.
 - 🔍 **Analyse automatique** : Détection instantanée de malaria dans l'image.
-- 🛡️ **Disponibilité garantie** : Architecture redondante pour éviter les interruptions.
+- 🛡️ **Disponibilité garantie** : Redondance entre Azure et Firebase pour une continuité du service.
 
 ---
 
@@ -61,6 +61,14 @@ cd Malaria-Detection-Web-App
   npm install
   ```
 
+- Pour l'entraînement du modèle (Python) :
+  ```bash
+  cd backend
+  python -m venv venv
+  source venv/bin/activate # (ou venv\Scripts\activate sous Windows)
+  pip install -r requirements.txt
+  ```
+
 ### **3️⃣ Lancer l'application**
 - **Front-End** :
   ```bash
@@ -68,7 +76,14 @@ cd Malaria-Detection-Web-App
   npm run serve
   ```
 
-- **Back-End** :
+- **Back-End Dockerisé (Azure) :**
+  ```bash
+  cd backend
+  docker build -t malaria-backend .
+  docker run -p 5000:5000 malaria-backend
+  ```
+
+- **Back-End Firebase :**
   - Déployez les fonctions Firebase :
     ```bash
     firebase deploy --only functions
@@ -85,7 +100,8 @@ cd Malaria-Detection-Web-App
 - Déployé sur [GitHub Pages](https://romcro.github.io/Malaria-Detection-Web-App) 🕸️.
 
 ### **Back-End**
-- Hébergé sur [Firebase](https://firebase.google.com) 🔥.
+- **Principal** : Hébergé sur Azure (Dockerisé) ☁️.
+- **Secondaire (Redondance)** : Hébergé sur Firebase Functions 🔥.
 
 ---
 
@@ -95,9 +111,12 @@ cd Malaria-Detection-Web-App
 ├── 📂 frontend         # Code Vue.js
 │   ├── 📂 public       # Modèles TensorFlow.js
 │   └── 📂 src          # Composants Vue.js
-├── 📂 backend          # Code Firebase Functions
-│   ├── functions       # API serverless
-│   └── firebase.json   # Configuration Firebase
+├── 📂 backend          # Code Python + API Dockerisée
+│   ├── functions       # API Firebase Functions (redondance)
+│   ├── app.py          # Code API principal (Flask/FastAPI)
+│   ├── Dockerfile      # Configuration Docker pour Azure
+│   ├── firebase.json   # Configuration Firebase
+│   └── requirements.txt # Dépendances Python
 ├── 📂 docs             # Documentation technique
 ├── 📂 data             # Dataset (local uniquement)
 ├── model.h5            # Modèle TensorFlow (pré-entraînement)
@@ -109,7 +128,7 @@ cd Malaria-Detection-Web-App
 ## 🎯 **Objectifs**
 1. **Précision du modèle :** Atteindre au moins 90% sur le dataset de test.
 2. **Temps de réponse :** Fournir une analyse en moins de 5 secondes.
-3. **Stabilité :** Garantir une disponibilité continue grâce à Firebase.
+3. **Stabilité :** Garantir une disponibilité continue grâce à la redondance Azure + Firebase.
 
 ---
 
