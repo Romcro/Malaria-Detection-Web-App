@@ -1,0 +1,75 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Build files
+dist/
+build/
+.temp/
+.vscode/
+.idea/
+
+# Vue.js
+*.env.local
+*.env.*.local
+!.env.example
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+.venv/
+env/
+venv/
+
+# Docker
+*.log
+*.pid
+*.seed
+*.pid.lock
+.env
+docker-compose.override.yml
+*.tar
+
+# Firebase
+firebase-debug.log
+.firebase/
+
+# Models
+*.h5
+*.pb
+*.ckpt
+*.tflite
+
+# Data
+/data/
+*.csv
+*.tsv
+*.json
+*.db
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.bak
+*.tmp
+
+# IDE specific files
+.idea/
+.vscode/
+*.iml
+
+# GitHub Pages
+docs/.vuepress/dist/
