@@ -1,0 +1,10 @@
+backend/
+├── datasets/         # Contient le script pour charger et prétraiter le dataset
+│   ├── __init__.py   # (Optionnel pour transformer ce dossier en module Python)
+│   └── load_dataset.py  # Script pour charger et préparer le dataset Malaria
+├── models/           # Contient les scripts et fichiers liés au modèle
+│   ├── train_model.py  # Script pour concevoir, entraîner, et sauvegarder le modèle
+│   ├── malaria_model.h5  # Modèle entraîné en format Keras H5
+│   └── __init__.py   # (Optionnel pour transformer ce dossier en module Python)
+├── requirements.txt  # Liste des dépendances Python
+└── README.md         # Documentation pour le dossier `backend`

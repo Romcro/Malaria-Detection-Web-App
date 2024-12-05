@@ -1,0 +1,20 @@
+📦 Malaria-Detection-Web-App
+├── 📂 frontend         # Code Vue.js
+│   ├── 📂 public       # Modèles TensorFlow.js
+│   └── 📂 src          # Composants Vue.js
+├── 📂 backend          # Code Python + API Dockerisée
+│   ├── 📂 datasets     # Scripts pour charger et prétraiter les datasets
+│   │   └── load_dataset.py  # Script pour charger et préparer le dataset
+│   ├── 📂 models       # Scripts pour entraîner et sauvegarder les modèles
+│   │   ├── train_model.py  # Script pour entraîner le modèle
+│   │   └── malaria_model.h5  # Modèle entraîné sauvegardé
+│   ├── functions       # API Firebase Functions (redondance)
+│   ├── app.py          # Code API principal (Flask/FastAPI)
+│   ├── Dockerfile      # Configuration Docker pour Azure
+│   ├── firebase.json   # Configuration Firebase
+│   ├── requirements.txt # Dépendances Python
+│   └── README.md       # Documentation pour le dossier backend
+├── 📂 docs             # Documentation technique
+├── 📂 data             # Dataset local pour exploration (optionnel)
+├── model.h5            # (Optionnel, si vous préférez le garder ici à la racine)
+├── README.md           # Documentation principale du projet 📝
